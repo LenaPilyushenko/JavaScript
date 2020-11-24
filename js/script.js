@@ -3,15 +3,17 @@
 const
     money = +prompt('Ваш месячный доход?'),
     addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = prompt('Есть ли у вас депозит в банке?'),
+    deposit = confirm('Есть ли у вас депозит в банке?'),
     expenses1 = prompt('Введите обязательную статью расходов?'),
     amount1 = +prompt('Во сколько это обойдется?'),
     expenses2 = prompt('Введите обязательную статью расходов?'),
     amount2 = +prompt('Во сколько это обойдется?'),
-    income = 'фриланс', mission = 500000, period = 12,
+    income = 'фриланс', 
+    mission = 500000,
+    period = 12,
     budgetMonth = money - amount1 - amount2,
-    target = Math.ceil(mission/budgetMonth),
-    budgetDay = Math.floor(budgetMonth/30)
+    target = Math.ceil(mission / budgetMonth),
+    budgetDay = Math.floor(budgetMonth / 30)
 ;
 
 console.log ('money : ' + typeof money + ', income : ' + typeof income + ', deposit : ' + typeof deposit);
