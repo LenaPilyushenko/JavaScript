@@ -10,36 +10,48 @@ const
     amount2 = +prompt('Во сколько это обойдется?'),
     income = 'фриланс', 
     mission = 500000,
-    period = 12,
-    budgetMonth = money - amount1 - amount2,
-    target = Math.ceil(mission / budgetMonth),
-    budgetDay = Math.floor(budgetMonth / 30)
+    period = 12
 ;
 
-console.log ('money : ' + typeof money + ', income : ' + typeof income + ', deposit : ' + typeof deposit);
+const getExpensesMonth = function() {
+    return amount1 + amount2;
+}
+const getAccumulatedMonth = function() {
+    return money - amount1 - amount2;
+}
 
-console.log ('Длина строки addExpenses : ' + addExpenses.length );
+const accumulatedMonth = getAccumulatedMonth();
 
-console.log ('Период равен ' + period + ' месяцев');
+const getTargetMonth = function () {
+    return mission / accumulatedMonth;
+}
 
-console.log ('Цель заработать ' + mission + ' рублей');
+const budgetDay = Math.floor(accumulatedMonth / 30);
+
+let showTypeOf = function(data) {
+    console.log(data, typeof(data));  
+}
+
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+
+getExpensesMonth();
 
 console.log (addExpenses.toLowerCase().split(', '));
 
-console.log ('budgetDay = ' + budgetDay );
+getTargetMonth();
 
-console.log('бюджет на месяц ' + budgetMonth );
+console.log('budgetDay ' +budgetDay);
 
-console.log('Цель будет достигнута за ' + target + ' месяцев');
-
-console.log('Бюджет на день ' + budgetDay + ' рублей');
-
-if (budgetDay >= 1200) {
-    console.log('У вас высокий уровень дохода');
-} else if (budgetDay >= 600) {
-    console.log('У вас средний уровень дохода');
-} else if (budgetDay >= 0) {
-    console.log('К сожалению, у вас уровень дохода ниже среднего');
-} else {
-    console.log('Что то пошло не так');
+let getStatusIncome = function() {
+    if (budgetDay >= 1200) {
+        return('У вас высокий уровень дохода');
+    } else if (budgetDay >= 600) {
+        return('У вас средний уровень дохода');
+    } else if (budgetDay >= 0) {
+        return('К сожалению, у вас уровень дохода ниже среднего');
+    } else {
+        return('Что то пошло не так');
+    }
 }
