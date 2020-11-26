@@ -28,7 +28,7 @@ const getTargetMonth = function () {
 
 const budgetDay = Math.floor(accumulatedMonth / 30);
 
-let showTypeOf = function(data) {
+const showTypeOf = function(data) {
     console.log(data, typeof(data));  
 }
 
@@ -44,7 +44,7 @@ getTargetMonth();
 
 console.log('budgetDay ' +budgetDay);
 
-let getStatusIncome = function() {
+const getStatusIncome = function() {
     if (budgetDay >= 1200) {
         return('У вас высокий уровень дохода');
     } else if (budgetDay >= 600) {
