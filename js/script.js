@@ -1,3 +1,4 @@
+  
 'use strict';
 
 const isNumber = function(n) {
@@ -12,74 +13,74 @@ const start = function() {
     while (!isNumber(money) );
 };
 start();
-const
-    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = confirm('Есть ли у вас депозит в банке?'),
-    income = 'фриланс', 
-    mission = 500000,
-    period = 12;
 
-let expenses = [] , amount = [];
-
-const getExpensesMonth = function() {
-    let sum = 0;
-
-    for (let i = 0; i < 2; i++ ) {
-
-        expenses[i] = prompt('Введите обязательную статью расходов?');
-        do {
-            amount[i] = +prompt('Во сколько это обойдется?');
+let appData = {
+    income: {},
+    addIncome: [],
+    expenses: {},
+    addExpenses: [],
+    deposit: false,
+    mission: 500000,
+    period: 12,
+    asking: function() {
+        const
+        addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        appData.addExpenses = addExpenses.toLowerCase().split(', ');
+        appData.deposit = confirm('Есть ли у вас депозит в банке?');
+        
+    },
+    budget: money,
+    budgetDay: 0,
+    budgetMonth: 0,
+    expensesMonth: 0,
+    getExpensesMonth: function() {
+        let sum = 0;
+        let expenses = [] , amount = [];
+        for (let i = 0; i < 2; i++ ) {
+    
+            expenses[i] = prompt('Введите обязательную статью расходов?');
+            do {
+                amount[i] = +prompt('Во сколько это обойдется?');
+            }
+            while (!isNumber(amount[i]) );
+            sum += amount[i] ;
         }
-        while (!isNumber(amount[i]) );
-        sum += amount[i] ;
-    }
-    console.log('здесь названия расходов' + expenses);
-    console.log('здесь стоимость этих расходов' + amount);
-    return sum;
+        return sum;
+    },
+    getAccumulatedMonth: function() {
+        return (money - appData.getExpensesMonth);
+    },
+    getStatusIncome: function() {
+        if (appData.budgetDay >= 1200) {
+            return('У вас высокий уровень дохода');
+        } else if (appData.budgetDay >= 600) {
+            return('У вас средний уровень дохода');
+        } else if (appData.budgetDay >= 0) {
+            return('К сожалению, у вас уровень дохода ниже среднего');
+        } else {
+            return('Что то пошло не так');
+        }
+    },
+    getTargetMonth: function () {
+        return appData.mission / appData.accumulatedMonth;
+    },
 };
 
-const expensesAmonth = getExpensesMonth();
+appData.expensesAmonth = appData.getExpensesMonth(); // расзходы за месяц
 
-console.log ('Расходы за месяц ' + expensesAmonth);
+console.log ('Расходы за месяц' + appData.expensesAmonth); //выводим расходы за месяц
 
-const getAccumulatedMonth = function() {
-    return money - expensesAmonth;
-};
+appData.accumulatedMonth = appData.getAccumulatedMonth(); //бюджет месяца
 
-const accumulatedMonth = getAccumulatedMonth();
+console.log('бюджет месяца' + appData.accumulatedMonth); // выводим бюджет месяца
 
-const getTargetMonth = function () {
-    return mission / accumulatedMonth;
-};
-
-const budgetDay = accumulatedMonth / 30;
-
-const showTypeOf = function(data) {
-    console.log(data, typeof(data));  
-};
-
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
-
-console.log (addExpenses.toLowerCase().split(', '));
-
-if (getTargetMonth > 0) {
-    console.log ('Цель будет достигнута через ' + Math.floor(getTargetMonth()) + ' месяцев');
+if (appData.getTargetMonth > 0) {
+    console.log ('Цель будет достигнута через ' + Math.floor(appData.getTargetMonth()) + ' месяцев');
 } else {
     console.log ('Цель не будет достигнута');
 }
 
+const budgetDay = appData.getAccumulatedMonth() / 30;
 console.log('budgetDay ' + budgetDay);
 
-let getStatusIncome = function() {
-    if (budgetDay >= 1200) {
-        return('У вас высокий уровень дохода');
-    } else if (budgetDay >= 600) {
-        return('У вас средний уровень дохода');
-    } else if (budgetDay >= 0) {
-        return('К сожалению, у вас уровень дохода ниже среднего');
-    } else {
-        return('Что то пошло не так');
-    }
-};
+console.log(appData.getStatusIncome());
