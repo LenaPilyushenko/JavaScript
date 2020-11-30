@@ -60,8 +60,11 @@ let appData = {
             amount, 
             sum = 0 ;
         for (let i = 0; i < 2; i++ ) {
-    
-            key = prompt('Введите обязательную статью расходов?');
+            do {
+                key = prompt('Введите обязательную статью расходов?');
+            }
+            while (!isNaN(key));
+            
             do {
                 amount = +prompt('Во сколько это обойдется?');
             }
@@ -75,7 +78,6 @@ let appData = {
             
             appData.expensesAmonth += appData.expenses[amount];
         }
-        //console.log ('сумма расходов в getExpensesMonth,   ' , sum);
         return appData.expensesAmonth;
     },
     getBudget: function() {
@@ -115,9 +117,9 @@ let appData = {
 
 appData.asking();
 
-console.log ('Расходы за месяц ' + appData.expensesAmonth); //выводим расходы за месяц
+console.log ('Расходы за месяц ' + appData.expensesAmonth); 
 
-appData.accumulatedMonth = appData.getBudget(); //бюджет месяца
+appData.accumulatedMonth = appData.getBudget(); 
 
 if (appData.getTargetMonth() > 0) {
     console.log ('Цель будет достигнута через (мес)' + appData.getTargetMonth());
@@ -140,7 +142,6 @@ for (let value of appData.addExpenses) {
 
 const arr = appData.addExpenses.map(function(elem) {
     const str = elem.trim(); 
-    console.log(str);
     return (str[0].toUpperCase() + str.slice(1));
 });
 console.log(arr.toString());
