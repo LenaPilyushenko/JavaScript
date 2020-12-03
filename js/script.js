@@ -20,8 +20,9 @@ let  buttonСalculate = document.getElementById('start'), // кнопка рас
     additionalАexpensesItem = document.querySelector('.additional_expenses-item'), // Возможные расходы через запятую
     targetAmount = document.querySelector('.target-amount'), // Цель
     periodSelect = document.querySelector('.period-select'),
-    incomeItems = document.querySelectorAll('.income-items'); // Период расчета
-
+    incomeItems = document.querySelectorAll('.income-items'),
+    periodAmount = document.querySelector('.period-amount'); // Период расчета
+   
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -62,7 +63,7 @@ const appData = {
     },
     addExpensesBlock: function() {
 
-        let cloneExpensesItems = expensesItems[0].cloneNode(true);
+        const cloneExpensesItems = expensesItems[0].cloneNode(true);
         expensesItems[0].parentNode.insertBefore(cloneExpensesItems , buttonPlusAdditionalIncome );
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
@@ -71,7 +72,7 @@ const appData = {
     },
     addIncomeBlock: function() {
 
-        let cloneIncomeItems = incomeItems[0].cloneNode(true);
+        const cloneIncomeItems = incomeItems[0].cloneNode(true);
         incomeItems[0].parentNode.insertBefore(cloneIncomeItems , buttonPlusIncome );
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3) {
@@ -90,34 +91,17 @@ const appData = {
         });
     },
     getincome: function() {
-        // let cashIncome,
-        //     itemIncome;
-        // if (confirm('Есть ли у вас испточник дополнительного заработка?')) {
-
-        //     do {
-        //         itemIncome = prompt('Какой у вас дополнительный заработок?' , 'Таксую');
-        //     }
-        //     while (!isNaN(itemIncome));
-
-        //     do {
-        //         cashIncome = prompt('Сколько вы на этом зарабатываете в месяц?', 10000);
-        //     }
-        //     while (!isNumber(cashIncome));
-
-        //     appData.income[itemIncome] = cashIncome;
-        // }
-
         incomeItems.forEach(function(item){
             const itemIncome = item.querySelector('.income-title').value;
             const cashIncome = item.querySelector('.income-amount').value;
             
             if ( itemIncome !== '' && cashIncome !== '' ) {
-                appData.expenses[itemIncome] = cashIncome;
+                appData.income[itemIncome] = cashIncome;
             }
-            console.log(appData.expenses);
+            console.log(appData.income);
         });
 
-        for (let key in appData.income) {
+        for (const key in appData.income) {
             appData.incomeMonth += +appData.income[key];
         }        
     },
@@ -128,10 +112,13 @@ const appData = {
         inputAdditionalExpenses.value = appData.addExpenses.join(', ');
         inputAdditionalIncome.value = appData.addIncome.join(', ');
         inputTargetMonth.value = Math.ceil(appData.getTargetMonth());
-        inputIncomePeriod.value = appData.calcSavedMoney();
+        inputIncomePeriod.value.addEventListener('input', function() {
+            appData.getperiodAmount();
+            periodAmount.textContent = appData.calcSavedMoney() * inputIncomePeriod.value;
+        });
     },
     getExpensesMonth: function() {
-        for (let amount in appData.expenses) {
+        for (const amount in appData.expenses) {
             console.log('appData.expenses[amount] ', appData.expenses[amount]);
             appData.expensesAmonth += +(appData.expenses[amount]);
         }
@@ -154,7 +141,7 @@ const appData = {
     },
     getAddIncome: function() {
         fieldsExpenses.forEach(function(item) {
-            let itemValue = item.value.trim();
+            const itemValue = item.value.trim();
             if (itemValue !== '') {
                 appData.addIncome.push(itemValue);
             }
@@ -188,6 +175,9 @@ const appData = {
     },
     calcSavedMoney: function() {
         return appData.budgetMonth * periodSelect.value;
+    },
+    getperiodAmount: function() {
+        periodAmount.innerHTML = periodSelect.value;
     }
 };
 
@@ -197,6 +187,7 @@ buttonPlusAdditionalIncome.addEventListener('click' , appData.addExpensesBlock);
 
 buttonPlusIncome.addEventListener('click' , appData.addIncomeBlock);
 
+periodSelect.addEventListener('input', appData.getperiodAmount);
 
 
 
