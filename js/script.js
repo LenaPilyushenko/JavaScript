@@ -101,10 +101,12 @@ const appData = {
         inputExpensesMonth.value = appData.expensesAmonth;
         inputAdditionalExpenses.value = appData.addExpenses.join(', ');
         inputAdditionalIncome.value = appData.addIncome.join(', ');
-        // inputIncomePeriod.value.addEventListener('input', function() {
-        //     appData.getperiodAmount();
-        //     periodAmount.textContent = appData.calcSavedMoney() * inputIncomePeriod.value;
-        // });
+        periodSelect.addEventListener('input', function() {
+            appData.getperiodAmount();
+            console.log('appData.budgetMonth ', appData.budgetMonth);
+            console.log('periodSelect.value ', periodSelect.value);
+            inputIncomePeriod.value = appData.budgetMonth * periodSelect.value;
+        });
     },
     getExpensesMonth: function() {
         for (const amount in appData.expenses) {
