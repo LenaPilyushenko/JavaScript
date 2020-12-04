@@ -1,6 +1,6 @@
 'use strict';
 
-let  buttonСalculate = document.getElementById('start'), // кнопка рассчитать
+const  buttonСalculate = document.getElementById('start'), // кнопка рассчитать
     buttonPlusIncome = document.getElementsByTagName('button') [0], // кнопка добавить дополнительный доход
     buttonPlusAdditionalIncome = document.getElementsByTagName('button') [1], // кнопка добавить возможный доход
     checkmark = document.querySelector('.deposit-checkmark'), // чекбокс
@@ -15,17 +15,18 @@ let  buttonСalculate = document.getElementById('start'), // кнопка рас
     salaryAmount = document.querySelector('.salary-amount'), // Месячный доход
     incomeTitle = document.querySelector('input.income-title'), // Название дополнительного дохода
     expenseesTitle = document.querySelector('input.expenses-title'), // Название обязательного расхода
-    expensesItems = document.querySelectorAll('.expenses-items'), // Сумма обязательного расхода
     incomeAmount = document.querySelector('.income-amount'), // Сумма дополнительного дохода
     additionalАexpensesItem = document.querySelector('.additional_expenses-item'), // Возможные расходы через запятую
     targetAmount = document.querySelector('.target-amount'), // Цель
     periodSelect = document.querySelector('.period-select'),
-    incomeItems = document.querySelectorAll('.income-items'),
     periodAmount = document.querySelector('.period-amount'); // Период расчета
    
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
+
+let  expensesItems = document.querySelectorAll('.expenses-items'),
+    incomeItems = document.querySelectorAll('.income-items'); // Сумма обязательного расхода
 
 const appData = {
     income: {},
@@ -52,7 +53,6 @@ const appData = {
         appData.showResult();
     },
     addExpensesBlock: function() {
-
         const cloneExpensesItems = expensesItems[0].cloneNode(true);
         expensesItems[0].parentNode.insertBefore(cloneExpensesItems , buttonPlusAdditionalIncome );
         expensesItems = document.querySelectorAll('.expenses-items');
@@ -61,7 +61,7 @@ const appData = {
         }
     },
     addIncomeBlock: function() {
-
+        
         const cloneIncomeItems = incomeItems[0].cloneNode(true);
         incomeItems[0].parentNode.insertBefore(cloneIncomeItems , buttonPlusIncome );
         incomeItems = document.querySelectorAll('.income-items');
@@ -88,7 +88,6 @@ const appData = {
             if ( itemIncome !== '' && cashIncome !== '' ) {
                 appData.income[itemIncome] = cashIncome;
             }
-            console.log(appData.income);
         });
 
         for (const key in appData.income) {
@@ -101,20 +100,17 @@ const appData = {
         inputExpensesMonth.value = appData.expensesAmonth;
         inputAdditionalExpenses.value = appData.addExpenses.join(', ');
         inputAdditionalIncome.value = appData.addIncome.join(', ');
+        inputIncomePeriod.value = appData.calcSavedMoney();
+
         periodSelect.addEventListener('input', function() {
             appData.getperiodAmount();
-            console.log('appData.budgetMonth ', appData.budgetMonth);
-            console.log('periodSelect.value ', periodSelect.value);
             inputIncomePeriod.value = appData.budgetMonth * periodSelect.value;
         });
     },
     getExpensesMonth: function() {
         for (const amount in appData.expenses) {
-            console.log('appData.expenses[amount] ', appData.expenses[amount]);
             appData.expensesAmonth += +(appData.expenses[amount]);
         }
-        console.log('appData.expensesAmonth' , appData.expensesAmonth);
-        console.log('appData.expensesAmonth' , appData.expensesAmonth);
         return appData.expensesAmonth;
     },
     getBudget: function() {
@@ -183,19 +179,3 @@ buttonPlusAdditionalIncome.addEventListener('click' , appData.addExpensesBlock);
 buttonPlusIncome.addEventListener('click' , appData.addIncomeBlock);
 
 periodSelect.addEventListener('input', appData.getperiodAmount);
-
-salaryAmount.addEventListener('change' , function() {
-    buttonСalculate.removeAttribute('disabled');
-});
-
- 
-
-
-
-// if (appData.getTargetMonth() > 0) {
-//     console.log ('Цель будет достигнута через (мес)' + appData.getTargetMonth());
-// } else {
-//     console.log ('Цель не будет достигнута');
-// }
-
-
