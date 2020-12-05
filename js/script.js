@@ -19,8 +19,8 @@ const  buttonСalculate = document.getElementById('start'), // кнопка ра
     additionalАexpensesItem = document.querySelector('.additional_expenses-item'), // Возможные расходы через запятую
     targetAmount = document.querySelector('.target-amount'), // Цель
     periodSelect = document.querySelector('.period-select'),
-    periodAmount = document.querySelector('.period-amount'); // Период расчета
-   
+    periodAmount = document.querySelector('.period-amount'), // Период расчета
+    getAllInput = document.querySelectorAll('input[placeholder]');
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -54,6 +54,10 @@ const appData = {
     },
     addExpensesBlock: function() {
         const cloneExpensesItems = expensesItems[0].cloneNode(true);
+
+        cloneExpensesItems.querySelector('.expenses-title').value = '';
+        cloneExpensesItems.querySelector('.expenses-amount').value = '';
+
         expensesItems[0].parentNode.insertBefore(cloneExpensesItems , buttonPlusAdditionalIncome );
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
@@ -61,8 +65,11 @@ const appData = {
         }
     },
     addIncomeBlock: function() {
-        
         const cloneIncomeItems = incomeItems[0].cloneNode(true);
+
+        cloneIncomeItems.querySelector('.income-title').value = '';
+        cloneIncomeItems.querySelector('.income-amount').value = '';
+
         incomeItems[0].parentNode.insertBefore(cloneIncomeItems , buttonPlusIncome );
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3) {
@@ -179,3 +186,19 @@ buttonPlusAdditionalIncome.addEventListener('click' , appData.addExpensesBlock);
 buttonPlusIncome.addEventListener('click' , appData.addIncomeBlock);
 
 periodSelect.addEventListener('input', appData.getperiodAmount);
+
+function checkPlaceholder() {
+    getAllInput.forEach(function(item){
+        if (item.placeholder === 'Сумма') {
+            item.addEventListener('input', function(){
+                item.value = item.value.replace(/[^\d]/g, '');
+            });
+        } if (item.placeholder === 'Наименование') {
+            item.addEventListener('input', function(){
+                item.value = item.value.replace(/[^а-я -.,]/g, '');
+            });
+        }
+    });
+}
+
+checkPlaceholder();
