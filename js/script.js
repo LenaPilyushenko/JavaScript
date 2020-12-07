@@ -261,6 +261,46 @@ const appData = {
         this.budgetDay = 0;
         this.budgetMonth = 0;
         this.expensesAmonth = 0;
+    
+        const arrInput = document.querySelectorAll('input');
+        arrInput.forEach(function(item){
+            item.value = '';
+        });
+
+        const expensesTitle = document.querySelectorAll('.expenses-title');
+        const expensesAmount = document.querySelectorAll('.expenses-amount');
+        const incomeTitle = document.querySelectorAll('.income-title');
+        const incomeAmount = document.querySelectorAll('.income-amount');
+        salaryAmount.removeAttribute('disabled');
+        incomeTitle.forEach(function(item){
+            item.removeAttribute('disabled');
+        });
+        incomeAmount.forEach(function(item){
+            item.removeAttribute('disabled');
+        });
+        buttonPlusIncome.removeAttribute('disabled');
+        fieldsExpenses[0].removeAttribute('disabled');
+        fieldsExpenses[1].removeAttribute('disabled');
+        fieldsExpenses[1].removeAttribute('disabled');
+        expensesAmount.forEach(function(item){
+            item.removeAttribute('disabled');
+        });
+        expensesTitle.forEach(function(item){
+            item.removeAttribute('disabled');
+        });
+        buttonPlusAdditionalIncome.removeAttribute('disabled');
+        additionalАexpensesItem.removeAttribute('disabled');
+        periodSelect.removeAttribute('disabled');
+        targetAmount.removeAttribute('disabled');
+        checkmark.removeAttribute('disabled');
+        
+        buttonСalculate.style.display = 'block';
+        btnCancel.style.display = 'none';
+
+        document.querySelectorAll('.income-items')[1].remove();
+        document.querySelectorAll('.income-items')[2].remove();
+        document.querySelectorAll('.expenses-items')[1].remove();
+        document.querySelectorAll('.expenses-items')[2].remove();
     }    
 };
 
