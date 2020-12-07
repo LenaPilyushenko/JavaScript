@@ -297,10 +297,13 @@ const appData = {
         buttonСalculate.style.display = 'block';
         btnCancel.style.display = 'none';
 
-        document.querySelectorAll('.income-items')[1].remove();
-        document.querySelectorAll('.income-items')[2].remove();
-        document.querySelectorAll('.expenses-items')[1].remove();
-        document.querySelectorAll('.expenses-items')[2].remove();
+        if(document.querySelectorAll('.income-items')[2])  { document.querySelectorAll('.income-items')[2].remove(); }
+
+        if(document.querySelectorAll('.income-items')[1]) { document.querySelectorAll('.income-items')[1].remove(); }
+
+        if(document.querySelectorAll('.expenses-items')[2]) {document.querySelectorAll('.expenses-items')[2].remove(); }
+        
+        if(document.querySelectorAll('.expenses-items')[1]) {document.querySelectorAll('.expenses-items')[1].remove();}
     }    
 };
 
