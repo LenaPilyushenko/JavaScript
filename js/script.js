@@ -335,13 +335,13 @@ AppData.prototype.eventsListeners = function() {
     
     periodSelect.addEventListener('input', this.getperiodAmount.bind(this));
     
-    appData.checkPlaceholder(getAllInput);
+    this.checkPlaceholder(getAllInput);
     
     btnCancel.addEventListener('click', this.clearForm.bind(this));
 };
 
 const appData = new AppData();
 appData.eventsListeners();
-console.log(appData);
+
 
 
