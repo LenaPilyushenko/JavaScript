@@ -86,26 +86,26 @@ class AppData {
     }
     
     getExpenses() {
-        const _this = this;
+        // const _this = this;
         expensesItems.forEach((item) => {
             const itemExpenses = item.querySelector('.expenses-title').value;
             const cashExpenses = item.querySelector('.expenses-amount').value;
             
             if ( itemExpenses !== '' && cashExpenses !== '' ) {
-                _this.expenses[itemExpenses] = cashExpenses;
+                this.expenses[itemExpenses] = cashExpenses;
             }
     
         });
     }
 
     getincome() {
-        const _this = this;
+        // const _this = this;
         incomeItems.forEach((item) => {
             const itemIncome = item.querySelector('.income-title').value;
             const cashIncome = item.querySelector('.income-amount').value;
             
             if ( itemIncome !== '' && cashIncome !== '' ) {
-                _this.income[itemIncome] = cashIncome;
+                this.income[itemIncome] = cashIncome;
             }
         });
     
@@ -156,21 +156,21 @@ class AppData {
 
     getAddExpenses() {
         const addExpenses = additionalАexpensesItem.value.split(',');
-        const _this = this;
+        // const _this = this;
         addExpenses.forEach((item) => {
             item = item.trim();
             if (item !== '') {
-                _this.addExpenses.push(item);
+                this.addExpenses.push(item);
             }
         });
     }
 
     getAddIncome() {
-        const _this = this;
+        // const _this = this;
         fieldsExpenses.forEach((item) => {
             const itemValue = item.value.trim();
             if (itemValue !== '') {
-                _this.addIncome.push(itemValue);
+                this.addIncome.push(itemValue);
             }
          });
     }
@@ -340,6 +340,5 @@ class AppData {
 
 const appData = new AppData();
 appData.eventsListeners();
-
 
 
