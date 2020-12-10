@@ -86,7 +86,6 @@ class AppData {
     }
     
     getExpenses() {
-        // const _this = this;
         expensesItems.forEach((item) => {
             const itemExpenses = item.querySelector('.expenses-title').value;
             const cashExpenses = item.querySelector('.expenses-amount').value;
@@ -99,7 +98,6 @@ class AppData {
     }
 
     getincome() {
-        // const _this = this;
         incomeItems.forEach((item) => {
             const itemIncome = item.querySelector('.income-title').value;
             const cashIncome = item.querySelector('.income-amount').value;
@@ -156,7 +154,6 @@ class AppData {
 
     getAddExpenses() {
         const addExpenses = additionalАexpensesItem.value.split(',');
-        // const _this = this;
         addExpenses.forEach((item) => {
             item = item.trim();
             if (item !== '') {
@@ -166,7 +163,6 @@ class AppData {
     }
 
     getAddIncome() {
-        // const _this = this;
         fieldsExpenses.forEach((item) => {
             const itemValue = item.value.trim();
             if (itemValue !== '') {
