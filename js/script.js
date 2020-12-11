@@ -217,7 +217,7 @@ class AppData {
         } else {
             return('Что то пошло не так');
         }
-    }
+    }    
 
     getTargetMonth() {
         return (Math.ceil(targetAmount.value / this.budgetMonth));
