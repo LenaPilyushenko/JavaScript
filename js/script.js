@@ -85,33 +85,18 @@ class AppData {
     //     }
     // }
 
-    addExpIncBlock () {
-        const count = item => {   
-            const statrStr = item[0].className.split('-')[0];
-            console.log('statrStr: ', statrStr);
-
-            
-            const cloneItems = `${statrStr}Items[0].cloneNode(true)`;
-            
-            cloneItems.querySelector(`.${statrStr}-title`).value = '';
-            cloneItems.querySelector(`.${statrStr}-amount`).value = '';
+    addExpIncBlock (item) {
         
-            incomeItems[0].parentNode.insertBefore(cloneItems , `buttonPlus${statrStr}` );
-            incomeItems = document.querySelectorAll(`.${statrStr}-items`);
-        
-            const itemsNewTitle = document.querySelectorAll('input[placeholder="Наименование"]');
-            const itemsNewAmount = document.querySelectorAll('input[placeholder="Сумма"]');
-            this.checkPlaceholder(itemsNewTitle);
-            this.checkPlaceholder(itemsNewAmount);
-        
-            if (`${statrStr}Items`.length === 3) {
-                `buttonPlus${statrStr}`.style.display = 'none';
-            }
-        };
-        
-        count(incomeItems);
-        count(expensesItems);
-
+        const statrStr = item.target.className.split(' ')[1].split('_')[0]; //получаем начало названия
+        const cloneItems = document.querySelectorAll(`.${statrStr}-items`); //получаем клонируемый div
+        const but = document.querySelector(`.${statrStr}_add`); //получаем кнопку
+        const cloneItem = cloneItems[0].cloneNode(true); //создаем клон
+        cloneItem.querySelector(`.${statrStr}-title`).value = '';
+        cloneItem.querySelector(`.${statrStr}-amount`).value = '';
+        cloneItems[0].parentNode.insertBefore(cloneItem, but); //вставляем клон
+        if (cloneItems.length === 2) {
+            but.style.display = 'none';
+        }
     }
 
     getExpInc() {
@@ -192,27 +177,35 @@ class AppData {
     //      });
     // }
     
-    getAddExpInc() {
+    // getAddExpInc() {
+    //     const addExpenses = additionalАexpensesItem.value.split(',');
+    //     const AddIncome =  document.querySelectorAll('.additional_income-item');
+
+    //     const addItem = item => {
+    //     if (item.value) {
+    //         item.value.trim();
+    //         if (item.value !== '') {
+    //             this.addIncome.push(item.value);
+    //         }
+    //     } else { 
+    //         // if (item) {item.trim();}
+    //         if (item !== '') {
+    //         this.addExpenses.push(item);
+    //         }
+    //     }
+    //     };
+    //     addExpenses.forEach(addItem);
+    //     AddIncome.forEach(addItem);
+
+    // }
+    getAddExpInc(){
         const addExpenses = additionalАexpensesItem.value.split(',');
-        const AddIncome =  document.querySelectorAll('.additional_income-item');
-
-        const addItem = item => {
-        if (item.value) {
-            item.value.trim();
-            if (item.value !== '') {
-                this.addIncome.push(item.value);
-            }
-        } else { 
-            item.trim();
-            if (item !== '') {
-            this.addExpenses.push(item);
-            }
-        }
-        };
-        addExpenses.forEach(addItem);
-        AddIncome.forEach(addItem);
-
-    }
+        const easy = (item) => {
+        item.value ? item.value.trim() && this.addIncome.push(item.value) : this.addExpenses.push(item);
+      };
+        addExpenses.forEach(easy);
+        additionalАexpensesItem.forEach(easy);
+      }
 
     getStatusIncome() {
         if (this.budgetDay >= 1200) {
