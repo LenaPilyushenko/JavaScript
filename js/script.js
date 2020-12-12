@@ -276,6 +276,7 @@ class AppData {
         const valueSelect = this.value;
         console.log('valueSelect: ', valueSelect);
         if (valueSelect === 'other') {
+            depositPercent.value = '';
             depositPercent.style.display = 'inline-block';
             depositPercent.addEventListener('input', () => {
                 depositPercent.value = depositPercent.value.replace(/[^\d]/g, '');
