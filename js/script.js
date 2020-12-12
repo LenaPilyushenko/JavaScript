@@ -45,46 +45,6 @@ class AppData {
         this.expensesAmonth = 0;
     }
 
-    // addExpensesBlock() {
-        
-    //     const cloneExpensesItems = expensesItems[0].cloneNode(true);
-    
-    //     cloneExpensesItems.querySelector('.expenses-title').value = '';
-    //     cloneExpensesItems.querySelector('.expenses-amount').value = '';
-        
-    //     expensesItems[0].parentNode.insertBefore(cloneExpensesItems , buttonPlusExpenses );
-    //     expensesItems = document.querySelectorAll('.expenses-items');
-    
-    //     const expensesItemsNewTitle = document.querySelectorAll('input[placeholder="Наименование"]');
-    //     const  expensesItemsNewAmount = document.querySelectorAll('input[placeholder="Сумма"]');
-    //     this.checkPlaceholder(expensesItemsNewTitle);
-    //     this.checkPlaceholder(expensesItemsNewAmount);
-    
-    //     if (expensesItems.length === 3) {
-    //         buttonPlusExpenses.style.display = 'none';
-    //     }
-        
-    // }
-    
-    // addIncomeBlock() {
-    //     const cloneIncomeItems = incomeItems[0].cloneNode(true);
-    
-    //     cloneIncomeItems.querySelector('.income-title').value = '';
-    //     cloneIncomeItems.querySelector('.income-amount').value = '';
-       
-    //     incomeItems[0].parentNode.insertBefore(cloneIncomeItems , buttonPlusIncome );
-    //     incomeItems = document.querySelectorAll('.income-items');
-    
-    //     const incomeItemsNewTitle = document.querySelectorAll('input[placeholder="Наименование"]');
-    //     const incomeItemsNewAmount = document.querySelectorAll('input[placeholder="Сумма"]');
-    //     this.checkPlaceholder(incomeItemsNewTitle);
-    //     this.checkPlaceholder(incomeItemsNewAmount);
-    
-    //    if (incomeItems.length === 3) {
-    //         buttonPlusIncome.style.display = 'none';
-    //     }
-    // }
-
     addExpIncBlock (item) {
         
         const statrStr = item.target.className.split(' ')[1].split('_')[0]; //получаем начало названия
@@ -157,55 +117,15 @@ class AppData {
         this.budgetDay = Math.ceil(this.budgetMonth / 30);
     }
 
-    // getAddExpenses() {
-    //     const addExpenses = additionalАexpensesItem.value.split(',');
-    //     addExpenses.forEach((item) => {
-    //         item = item.trim();
-    //         if (item !== '') {
-    //             this.addExpenses.push(item);
-    //         }
-    //     });
-    // }
-
-    // getAddIncome() {
-    //     const AddIncome =  document.querySelectorAll('.additional_income-item');
-    //     AddIncome.forEach((item) => {
-    //         const itemValue = item.value.trim();
-    //         if (itemValue !== '') {
-    //             this.addIncome.push(itemValue);
-    //         }
-    //      });
-    // }
-    
-    // getAddExpInc() {
-    //     const addExpenses = additionalАexpensesItem.value.split(',');
-    //     const AddIncome =  document.querySelectorAll('.additional_income-item');
-
-    //     const addItem = item => {
-    //     if (item.value) {
-    //         item.value.trim();
-    //         if (item.value !== '') {
-    //             this.addIncome.push(item.value);
-    //         }
-    //     } else { 
-    //         // if (item) {item.trim();}
-    //         if (item !== '') {
-    //         this.addExpenses.push(item);
-    //         }
-    //     }
-    //     };
-    //     addExpenses.forEach(addItem);
-    //     AddIncome.forEach(addItem);
-
-    // }
     getAddExpInc(){
+        const AddIncome =  document.querySelectorAll('.additional_income-item');
         const addExpenses = additionalАexpensesItem.value.split(',');
         const easy = (item) => {
-        item.value ? item.value.trim() && this.addIncome.push(item.value) : this.addExpenses.push(item);
-      };
+            item.value ? item.value.trim() && this.addIncome.push(item.value) : this.addExpenses.push(item);
+        };
         addExpenses.forEach(easy);
-        additionalАexpensesItem.forEach(easy);
-      }
+        AddIncome.forEach(easy);   
+    }
 
     getStatusIncome() {
         if (this.budgetDay >= 1200) {
@@ -371,4 +291,25 @@ class AppData {
 
 const appData = new AppData();
 appData.eventsListeners();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
